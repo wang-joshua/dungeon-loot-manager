@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Dungeon Loot Manager</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <h1>Dungeon Loot Manager</h1>
+        <p class="subtitle">Earn 300 gold to pay off your debt to win!</p>
+    </header>
+
+    <main class="grid">
+        <!-- Player Panel -->
+        <section class="card" id="player-card">
+            <h2>Hero</h2>
+            <div class="name-row">
+                <input id="player-name-input" type="text" placeholder="Enter hero name" />
+                <button id="set-name-btn">Set Name</button>
+            </div>
+
+            <div id="player-info">
+                <p>What is your name, Hero?</p>
+            </div>
+
+            <button id="refresh-player-btn">Refresh Player</button>
+
+            <button id="pay-debt-btn">Pay Hero Academy Debt (300g)</button>
+            <p id="debt-status" class="small-muted"></p>
+        </section>
+
+        <!-- Store Card -->
+        <section class="card" id="store-card">
+            <h2>Store</h2>
+            <p class="small-muted">Buy gear and potions here. The store refreshes every 5 battles.</p>
+            <div id="store-items"></div>
+        </section>
+
+        <!-- Inventory -->
+        <section class="card" id="inventory-card">
+            <h2>Inventory</h2>
+            <div id="inventory-list" class="list">
+                <p>No items yet.</p>
+            </div>
+        </section>
+
+        <!-- Battle Panel -->
+        <section class="card" id="battle-card">
+            <h2>Battle</h2>
+            <div id="battle-info">
+                <p>No enemy yet. Start an encounter!</p>
+            </div>
+            <div class="battle-buttons">
+                <button id="start-encounter-btn">Start Encounter</button>
+                <button id="attack-btn">Attack</button>
+                <button id="restart-btn">Restart Game</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Equip Weapons and Armor to boost stats. Use potions to heal player. Battle monsters and sell items for gold.</p>
+    </footer>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

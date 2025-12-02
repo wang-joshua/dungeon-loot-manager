@@ -1,0 +1,198 @@
+/* Basic reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: radial-gradient(circle at top, #1f2933 0, #020617 60%);
+    color: #e5e7eb;
+    min-height: 100vh;
+}
+
+/* Layout */
+.page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 3rem;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    letter-spacing: 0.05em;
+}
+
+.subtitle {
+    margin-top: 0.5rem;
+    color: #9ca3af;
+    font-size: 0.95rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(0, 1.1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+
+/* Cards */
+.card {
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 12px;
+    padding: 1rem 1.25rem 1.25rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+/* Lists */
+.list {
+    border-radius: 8px;
+    background: rgba(15, 23, 42, 0.8);
+    padding: 0.5rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.4rem 0.5rem;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+    border: 1px solid transparent;
+}
+
+.list-item:nth-child(odd) {
+    background: rgba(15, 23, 42, 0.7);
+}
+
+.list-item:nth-child(even) {
+    background: rgba(15, 23, 42, 0.9);
+}
+
+.item-main {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-title {
+    font-weight: 600;
+}
+
+.item-meta {
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+/* Rarity colors */
+.rarity-COMMON {
+    border-color: #6b7280;
+}
+
+.rarity-RARE {
+    border-color: #3b82f6;
+}
+
+.rarity-EPIC {
+    border-color: #a855f7;
+}
+
+.rarity-LEGENDARY {
+    border-color: #fbbf24;
+}
+
+/* Buttons */
+button {
+    border: none;
+    background: #4b5563;
+    color: #e5e7eb;
+    padding: 0.35rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: transform 0.05s ease-out, box-shadow 0.05s ease-out, background 0.1s ease-out;
+}
+
+button:hover {
+    background: #6b7280;
+    box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.7);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 0.85rem;
+}
+
+select {
+    background: #020617;
+    border-radius: 999px;
+    border: 1px solid #4b5563;
+    color: #e5e7eb;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+}
+
+/* Player info */
+#player-info p {
+    margin-bottom: 0.25rem;
+}
+
+.footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #9ca3af;
+}
+
+.name-row {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.name-row input {
+    flex: 1;
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid #4b5563;
+    background: #020617;
+    color: #e5e7eb;
+    font-size: 0.8rem;
+}
+
+.small-muted {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-top: 0.25rem;
+}
