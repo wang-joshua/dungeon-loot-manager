@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
  *      and has a base endpoint path of "/api/battle".
  */
 
+@RestController
+@RequestMapping("/api/battle")
 @CrossOrigin
 public class BattleController {
 
@@ -51,8 +53,9 @@ public class BattleController {
      *
      * @return current BattleState snapshot
      */
+    @GetMapping
     public BattleState getCurrentBattle() {
-        
+        return battleService.getCurrentState();
     }
 
     /**
@@ -69,8 +72,9 @@ public class BattleController {
      *
      * @return updated BattleState after starting the encounter
      */
+    @PostMapping("/start")
     public BattleState startEncounter() {
-        
+        return battleService.startEncounter();
     }
 
     /**
@@ -89,7 +93,8 @@ public class BattleController {
      *
      * @return updated BattleState after resolving the attack
      */
+    @PostMapping("/attack")
     public BattleState attack() {
-        
+        return battleService.playerAttack();
     }
 }

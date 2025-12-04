@@ -15,9 +15,12 @@ import jakarta.persistence.*;
  *      in our database, and has a unique Id.
  */
 
+@Entity
+@Table(name = "inventory_item")
 public class InventoryItem {
 
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long itemId;
     private int quantity;
@@ -38,6 +41,9 @@ public class InventoryItem {
     }
 
     //== GETTERS ==\\
+    public Long getId() {
+        return id;
+    }
     public Long getItemId() {
         return itemId;
     }

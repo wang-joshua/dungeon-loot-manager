@@ -21,6 +21,8 @@ import java.util.Map;
  *      and has a base endpoint path of "/api/player".
  */
 
+@RestController
+@RequestMapping("/api/player")
 @CrossOrigin
 public class PlayerController {
 
@@ -56,8 +58,9 @@ public class PlayerController {
      *
      * @return current Player entity
      */
+    @GetMapping
     public Player getPlayer() {
-        
+        return playerService.getOrCreatePlayer();
     }
 
     /**
@@ -76,8 +79,9 @@ public class PlayerController {
      * @param player the Player object sent from the client
      * @return the saved Player after persistence
      */
-    public Player updatePlayer(Player player) {
-        
+    @PutMapping
+    public Player updatePlayer(@RequestBody Player player) {
+        return playerService.save(player);
     }
 
     /**
@@ -99,8 +103,15 @@ public class PlayerController {
      * @param body map of JSON fields sent from the frontend
      * @return updated Player with the new name
      */
-    public Player setName(Map<String, String> body) {
-        
+    @PostMapping("/name")
+    public Player setName(@RequestBody Map<String, String> body) {
+        String name = body.get("name");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null or blank.");
+        }
+        Player player = playerService.getOrCreatePlayer();
+        player.setName(name);
+        return playerService.save(player);
     }
 
     /**
@@ -119,8 +130,9 @@ public class PlayerController {
      *
      * @return updated Player after attempting payment
      */
+    @PostMapping("/pay-debt")
     public Player payDebt() {
-        
+        return playerService.payDebt();
     }
 
     /**
@@ -140,7 +152,9 @@ public class PlayerController {
      *
      * @return fresh Player after a full reset
      */
+    @PostMapping("/restart")
     public Player restartGame() {
-        
+        inventoryService.clearInventory();
+        return playerService.restartGame();
     }
 }

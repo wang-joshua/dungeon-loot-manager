@@ -16,8 +16,12 @@ import jakarta.persistence.*;
  *      in our database, and has a unique Id.
  */
 
+@Entity
+@Table(name = "item")
 public class Item {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     @Enumerated(EnumType.STRING)

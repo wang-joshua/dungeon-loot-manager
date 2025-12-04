@@ -3,6 +3,7 @@ package edu.gatech.cs1331.hw09.backend.controller;
 import edu.gatech.cs1331.hw09.backend.model.Item;
 import edu.gatech.cs1331.hw09.backend.model.Player;
 import edu.gatech.cs1331.hw09.backend.service.ShopService;
+import edu.gatech.cs1331.hw09.backend.service.ItemService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,10 +23,13 @@ import java.util.List;
  *      and has a base endpoint path of "/api/shop".
  */
 
+@RestController
+@RequestMapping("/api/shop")
 @CrossOrigin
 public class ShopController {
 
     private final ShopService shopService;
+    private final ItemService itemService;
 
     /**
      * Creates a ShopController with the given ShopService.
@@ -34,9 +38,11 @@ public class ShopController {
      *      Complete this constructor using proper dependency injection.
      *
      * @param shopService service for shop operations
+     * @param itemService service for item operations
      */
-    public ShopController(ShopService shopService) {
+    public ShopController(ShopService shopService, ItemService itemService) {
         this.shopService = shopService;
+        this.itemService = itemService;
     }
 
     /**
@@ -54,8 +60,9 @@ public class ShopController {
      *
      * @return list of Item entities the player can buy
      */
+    @GetMapping
     public List<Item> getOffers() {
-        
+        return shopService.getCurrentOffers();
     }
 
     /**
@@ -76,7 +83,9 @@ public class ShopController {
      * @param itemId id of the item to buy
      * @return updated Player after purchase
      */
-    public Player buy(Long itemId) {
-        
+    @PostMapping("/buy/{itemId}")
+    public Item buy(@PathVariable Long itemId) {
+        shopService.buyItem(itemId);
+        return itemService.getItemOrThrow(itemId);
     }
 }

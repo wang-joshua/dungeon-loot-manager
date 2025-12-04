@@ -24,6 +24,8 @@ import java.util.List;
  *      and has a base endpoint path of "/api/inventory".
  */
 
+@RestController
+@RequestMapping("/api/inventory")
 @CrossOrigin
 public class InventoryController {
 
@@ -55,8 +57,9 @@ public class InventoryController {
      *
      * @return list of InventoryItem entries
      */
+    @GetMapping
     public List<InventoryItem> getInventory() {
-        
+        return inventoryService.getInventory();
     }
 
     /**
@@ -76,8 +79,9 @@ public class InventoryController {
      * @param itemId id of the Item to loot
      * @return the InventoryItem after looting
      */
-    public InventoryItem loot(Long itemId) {
-        
+    @PostMapping("/loot/{itemId}")
+    public InventoryItem loot(@PathVariable Long itemId) {
+        return inventoryService.addItem(itemId);
     }
 
     /**
@@ -96,8 +100,13 @@ public class InventoryController {
      * @param itemId id of the Item to drop
      * @return the updated InventoryItem after dropping
      */
-    public InventoryItem drop(Long itemId) {
-        
+    @DeleteMapping("/drop/{itemId}")
+    public InventoryItem drop(@PathVariable Long itemId) {
+        inventoryService.removeOne(itemId);
+        return inventoryService.getInventory().stream()
+                .filter(inv -> inv.getItemId().equals(itemId))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -115,10 +124,15 @@ public class InventoryController {
      *      HINT: Look through the InventoryService.java methods.
      *
      * @param itemId id of the Item to sell
-     * @return updated Player after selling
+     * @return updated InventoryItem after selling (or null if item was removed)
      */
-    public Player sell(Long itemId) {
-        
+    @PostMapping("/sell/{itemId}")
+    public InventoryItem sell(@PathVariable Long itemId) {
+        inventoryService.sellOne(itemId);
+        return inventoryService.getInventory().stream()
+                .filter(inv -> inv.getItemId().equals(itemId))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -136,10 +150,15 @@ public class InventoryController {
      *      HINT: Look through the InventoryService.java methods.
      *
      * @param itemId id of the potion item
-     * @return updated Player after using the potion
+     * @return updated InventoryItem after using the potion (or null if item was removed)
      */
-    public Player use(Long itemId) {
-        
+    @PostMapping("/use/{itemId}")
+    public InventoryItem use(@PathVariable Long itemId) {
+        inventoryService.usePotion(itemId);
+        return inventoryService.getInventory().stream()
+                .filter(inv -> inv.getItemId().equals(itemId))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -158,10 +177,15 @@ public class InventoryController {
      *      HINT: Look through the InventoryService.java methods.
      *
      * @param itemId id of the item to equip
-     * @return updated Player after equipping
+     * @return updated InventoryItem after equipping
      */
-    public Player equip(Long itemId) {
-        
+    @PostMapping("/equip/{itemId}")
+    public InventoryItem equip(@PathVariable Long itemId) {
+        inventoryService.equipItem(itemId);
+        return inventoryService.getInventory().stream()
+                .filter(inv -> inv.getItemId().equals(itemId))
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -179,9 +203,14 @@ public class InventoryController {
      *      HINT: Look through the InventoryService.java methods.
      *
      * @param itemId id of the item to unequip
-     * @return updated Player after unequipping
+     * @return updated InventoryItem after unequipping
      */
-    public Player unequip(Long itemId) {
-        
+    @PostMapping("/unequip/{itemId}")
+    public InventoryItem unequip(@PathVariable Long itemId) {
+        inventoryService.unequipItem(itemId);
+        return inventoryService.getInventory().stream()
+                .filter(inv -> inv.getItemId().equals(itemId))
+                .findFirst()
+                .orElse(null);
     }
 }

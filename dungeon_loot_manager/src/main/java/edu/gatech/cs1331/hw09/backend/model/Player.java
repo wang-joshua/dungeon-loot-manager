@@ -14,10 +14,12 @@ import jakarta.persistence.*;
  *      in our database, and has a unique Id.
  */
 
-
+@Entity
+@Table(name = "player")
 public class Player {
 
-   
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int level;

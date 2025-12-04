@@ -18,6 +18,8 @@ import java.util.List;
  *      and has a base endpoint path of "/api/items".
  */
 
+@RestController
+@RequestMapping("/api/items")
 @CrossOrigin
 public class ItemController {
 
@@ -49,8 +51,9 @@ public class ItemController {
      *
      * @return list of all Item entities
      */
+    @GetMapping
     public List<Item> getAllItems() {
-        
+        return itemService.getAllItems();
     }
 
     /**
@@ -68,8 +71,9 @@ public class ItemController {
      * @param id the ID of the item to retrieve
      * @return the Item entity with the given ID
      */
-    public Item getItemById(Long id) {
-        
+    @GetMapping("/{id}")
+    public Item getItemById(@PathVariable Long id) {
+        return itemService.getItemOrThrow(id);
     }
 
     /**
@@ -88,8 +92,9 @@ public class ItemController {
      * @param rarity rarity filter to apply
      * @return list of items that match the given rarity
      */
-    public List<Item> getItemsByRarity(String rarity) {
-        
+    @GetMapping("/rarity/{rarity}")
+    public List<Item> getItemsByRarity(@PathVariable String rarity) {
+        return itemService.getItemsByRarity(rarity);
     }
 
     /**
