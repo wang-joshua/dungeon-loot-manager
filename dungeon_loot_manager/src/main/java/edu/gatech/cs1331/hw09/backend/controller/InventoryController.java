@@ -127,12 +127,8 @@ public class InventoryController {
      * @return updated InventoryItem after selling (or null if item was removed)
      */
     @PostMapping("/sell/{itemId}")
-    public InventoryItem sell(@PathVariable Long itemId) {
-        inventoryService.sellOne(itemId);
-        return inventoryService.getInventory().stream()
-                .filter(inv -> inv.getItemId().equals(itemId))
-                .findFirst()
-                .orElse(null);
+    public Player sell(@PathVariable Long itemId) {
+        return inventoryService.sellOne(itemId);
     }
 
     /**
@@ -153,12 +149,8 @@ public class InventoryController {
      * @return updated InventoryItem after using the potion (or null if item was removed)
      */
     @PostMapping("/use/{itemId}")
-    public InventoryItem use(@PathVariable Long itemId) {
-        inventoryService.usePotion(itemId);
-        return inventoryService.getInventory().stream()
-                .filter(inv -> inv.getItemId().equals(itemId))
-                .findFirst()
-                .orElse(null);
+    public Player use(@PathVariable Long itemId) {
+        return inventoryService.usePotion(itemId);
     }
 
     /**
@@ -180,12 +172,8 @@ public class InventoryController {
      * @return updated InventoryItem after equipping
      */
     @PostMapping("/equip/{itemId}")
-    public InventoryItem equip(@PathVariable Long itemId) {
-        inventoryService.equipItem(itemId);
-        return inventoryService.getInventory().stream()
-                .filter(inv -> inv.getItemId().equals(itemId))
-                .findFirst()
-                .orElse(null);
+    public Player equip(@PathVariable Long itemId) {
+        return inventoryService.equipItem(itemId);
     }
 
     /**
@@ -206,11 +194,7 @@ public class InventoryController {
      * @return updated InventoryItem after unequipping
      */
     @PostMapping("/unequip/{itemId}")
-    public InventoryItem unequip(@PathVariable Long itemId) {
-        inventoryService.unequipItem(itemId);
-        return inventoryService.getInventory().stream()
-                .filter(inv -> inv.getItemId().equals(itemId))
-                .findFirst()
-                .orElse(null);
+    public Player unequip(@PathVariable Long itemId) {
+        return inventoryService.unequipItem(itemId);
     }
 }

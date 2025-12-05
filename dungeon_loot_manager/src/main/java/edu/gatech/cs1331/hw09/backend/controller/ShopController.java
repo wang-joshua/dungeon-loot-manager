@@ -84,8 +84,7 @@ public class ShopController {
      * @return updated Player after purchase
      */
     @PostMapping("/buy/{itemId}")
-    public Item buy(@PathVariable Long itemId) {
-        shopService.buyItem(itemId);
-        return itemService.getItemOrThrow(itemId);
+    public Player buy(@PathVariable Long itemId) {
+        return shopService.buyItem(itemId);
     }
 }
