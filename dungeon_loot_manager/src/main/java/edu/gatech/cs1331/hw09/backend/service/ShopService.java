@@ -119,4 +119,13 @@ public class ShopService {
 
         return playerService.getOrCreatePlayer();
     }
+
+    /**
+     * Helper to expose Item lookup for controllers that don't want to
+     * depend directly on ItemService. Keeps controller constructors
+     * simpler for the unit tests.
+     */
+    public Item getItemOrThrow(Long itemId) {
+        return itemService.getItemOrThrow(itemId);
+    }
 }

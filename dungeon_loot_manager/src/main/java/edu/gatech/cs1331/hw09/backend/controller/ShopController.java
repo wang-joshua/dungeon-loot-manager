@@ -3,8 +3,12 @@ package edu.gatech.cs1331.hw09.backend.controller;
 import edu.gatech.cs1331.hw09.backend.model.Item;
 import edu.gatech.cs1331.hw09.backend.model.Player;
 import edu.gatech.cs1331.hw09.backend.service.ShopService;
-import edu.gatech.cs1331.hw09.backend.service.ItemService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -28,9 +32,6 @@ import java.util.List;
 @CrossOrigin
 public class ShopController {
 
-    private final ShopService shopService;
-    private final ItemService itemService;
-
     /**
      * Creates a ShopController with the given ShopService.
      *
@@ -40,9 +41,10 @@ public class ShopController {
      * @param shopService service for shop operations
      * @param itemService service for item operations
      */
-    public ShopController(ShopService shopService, ItemService itemService) {
+    private final ShopService shopService;
+
+    public ShopController(ShopService shopService) {
         this.shopService = shopService;
-        this.itemService = itemService;
     }
 
     /**
@@ -84,7 +86,8 @@ public class ShopController {
      * @return updated Player after purchase
      */
     @PostMapping("/buy/{itemId}")
-    public Player buy(@PathVariable Long itemId) {
-        return shopService.buyItem(itemId);
+    public Item buy(@PathVariable("itemId") Long itemId) {
+        shopService.buyItem(itemId);
+        return shopService.getItemOrThrow(itemId);
     }
 }
